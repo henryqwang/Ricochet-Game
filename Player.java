@@ -10,15 +10,14 @@ public class Player extends GameObject{
 
 	Random r = new Random();
 	Handler handler;
-	//HUD hud;
-
-	public Player(int x, int y, ID id, Handler handler){
+	private HUD hud;
+	
+	public Player(int x, int y, ID id, Handler handler, HUD hud){
 		super(x, y, id);
 		this.handler = handler;
-		//this.hud = hud;
+		this.hud = hud;
 	}
 
-	@Override
 	public Rectangle getBounds() { //return type is rectangle
 		// TODO Auto-generated method stub
 		return new Rectangle(x,y,32,32);
@@ -35,6 +34,9 @@ public class Player extends GameObject{
 
 	}
 
+	//Maybe add a shooting method?
+	//Bullet has velocity that can destroy enemies
+	
 	private void collision(){
 		for(int i = 0; i<handler.object.size(); i++){
 			 GameObject tempObject = handler.object.get(i);
@@ -42,7 +44,7 @@ public class Player extends GameObject{
 			 if(tempObject.getId() == ID.BasicEnemy){
 				 //when tempObject is a basic enemy
 				 if (getBounds().intersects(tempObject.getBounds())){
-					 HUD.HEALTH -= 1;
+					 this.hud.HEALTH -= 1;
 				 }
 			 }
 		}
@@ -50,7 +52,7 @@ public class Player extends GameObject{
 
 	public void render(Graphics g) {
 		if (id == ID.Player){
-			g.setColor(Color.white);	
+			g.setColor(Color.MAGENTA);	
 			g.fillRect(x, y, 32, 32);
 
 		}

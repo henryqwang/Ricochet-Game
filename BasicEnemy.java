@@ -10,8 +10,8 @@ public class BasicEnemy extends GameObject{
 		super(x, y, id);
 		// TODO Auto-generated constructor stub
 		this.handler = handler;
-		velX = 3;
-		velY = 3;
+		velX = 1;
+		velY = 1;
 	}
 	
 	public Rectangle getBounds() {
@@ -19,15 +19,17 @@ public class BasicEnemy extends GameObject{
 		return new Rectangle(x,y,16,16);
 	}
 	public void tick() {
+		//Implement probability function to vary initial velocity direction
 		x += velX;
 		y += velY;
+		
 		if(y <= 0|| y >= Game.HEIGHT - 32*1.5){
 			velY *= -1;
 		}
 		if(x <= 0||x >= Game.WIDTH -16){
 			velX *= -1;
 		}
-		handler.addOject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.03f, handler));
+		handler.addOject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.04f, handler));
 		
 	}
 	public void render(Graphics g) {

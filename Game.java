@@ -14,24 +14,26 @@ public class Game extends Canvas implements Runnable{
 
 	private Random r;
 	private Handler handler;
-	private HUD hud;
+	private HUD hud1;
+	private HUD hud2;
 
 	public Game(){
 
 		//Handler construction
 		handler = new Handler();
-
+		//Make game aware of key presses
 		this.addKeyListener(new KeyInput(handler));
-		
-		new  Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
-		//When we construct a game object, it automatically creates a window object
-		//while passing an instance of itself as an argument
-		
-		hud = new HUD();
+		//Build window
+		new  Window(WIDTH, HEIGHT, "Evidence of Henry Beating Kim", this);
+		//When we construct a game object, it automatically creates a window object while passing an instance of itself as an argument
 		
 		r = new Random();
 
-		handler.addOject(new Player(WIDTH/2-32,HEIGHT/2-32, ID.Player, handler));//location of player is randomly generated
+		hud1 = new HUD(ID.Player);
+		hud2 = new HUD(ID.Player2);
+		
+		handler.addOject(new Player(WIDTH/2-64,HEIGHT/2-32, ID.Player, handler, hud1));
+		handler.addOject(new Player(WIDTH/2+64,HEIGHT/2-32, ID.Player2, handler, hud2));
 		
 		for(int i = 0; i <20; i++){
 			handler.addOject(new BasicEnemy(r.nextInt(WIDTH),r.nextInt(HEIGHT), ID.BasicEnemy, handler));//location of player is randomly generated
@@ -85,7 +87,8 @@ public class Game extends Canvas implements Runnable{
 
 	private void tick(){
 		handler.tick(); //makes every object inside LL (see handler) tick
-		hud.tick();
+		hud1.tick();
+		hud2.tick();
 		
 	}
 
@@ -102,7 +105,8 @@ public class Game extends Canvas implements Runnable{
 		
 		
 		handler.render(g);
-		hud.render(g);
+		hud1.render(g);
+		hud2.render(g);
 		
 		g.dispose();
 		bs.show();

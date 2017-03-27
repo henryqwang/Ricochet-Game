@@ -9,6 +9,7 @@ public class KeyInput extends KeyAdapter{
 		this.handler = handler;
 	}
 	public void keyPressed(KeyEvent e){
+		
 		int key = e.getKeyCode();//get the number value corresponding to the key pressed
 
 		for(int i = 0; i < handler.object.size();i++)
