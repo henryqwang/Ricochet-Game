@@ -22,7 +22,7 @@ public class Handler {
 			tempObject.render(g);
 		}
 	}
-	public void addOject(GameObject object){
+	public void addObject(GameObject object){
 		this.object.add(object);
 	}
 	public void removeObject(GameObject object){

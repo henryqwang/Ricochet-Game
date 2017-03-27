@@ -12,32 +12,30 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 
-	private Random r;
+	
 	private Handler handler;
 	private HUD hud;
+	private Spawn spawner;
+	private Random r;
 
 	public Game(){
 
 		//Handler construction
 		handler = new Handler();
-
+		
+		//Makes game be aware of keyboard input
 		this.addKeyListener(new KeyInput(handler));
 		
+		//Window construction
 		new  Window(WIDTH, HEIGHT, "Let's Build a Game!", this);
 		//When we construct a game object, it automatically creates a window object
 		//while passing an instance of itself as an argument
 		
 		hud = new HUD();
+		spawner = new Spawn(handler, hud);
 		
-		r = new Random();
-
-		handler.addOject(new Player(WIDTH/2-32,HEIGHT/2-32, ID.Player, handler));//location of player is randomly generated
+		handler.addObject(new Player(WIDTH/2-32,HEIGHT/2-32, ID.Player, handler));//location of player is randomly generated
 		
-		for(int i = 0; i <20; i++){
-			handler.addOject(new BasicEnemy(r.nextInt(WIDTH),r.nextInt(HEIGHT), ID.BasicEnemy, handler));//location of player is randomly generated
-		}
-
-
 
 	}
 	public synchronized void start(){
@@ -84,9 +82,10 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	private void tick(){
+		
 		handler.tick(); //makes every object inside LL (see handler) tick
 		hud.tick();
-		
+		spawner.tick();
 	}
 
 	private void render(){
