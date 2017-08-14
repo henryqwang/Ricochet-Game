@@ -1,4 +1,4 @@
-# first-little-game
+# My First Game (created using Java)
 Credit to RealTutsGML
 
 This is my first game created in Java, completely following RealTutsGML's videos:
